@@ -18,6 +18,6 @@
 
 
 	$config = [
-		'employee/create' => form_validation_field($create_update),
-		'employee/update' => form_validation_field($create_update)
+		'employee/create' => array_map('form_validation_field', $employee_create_update),
+		'employee/update' => array_map('form_validation_field', $employee_create_update)
 	];	
