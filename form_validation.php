@@ -1,10 +1,14 @@
 <?php
 	function form_validation_field($a) {
-		return [
-			'field' => $a[0],
-			'label' => $a[1],
-			'rules' => $a[2]
-		];
+		$callback = function(array $a) {
+			return [
+				'field' => $a[0],
+				'label' => $a[1],
+				'rules' => $a[2]
+			];
+		};
+
+		return array_map($callback, $a);
 	}
 
 	$create_update = [
@@ -15,9 +19,13 @@
 		['email', 'Email Address', 'required'],
 		['contact_no', 'Contact Number', 'required']
 	];
-
+	
+        $employee_delete = [
+		['captcha', 'Captcha', 'required']    
+	];
 
 	$config = [
-		'employee/create' => array_map('form_validation_field', $employee_create_update),
-		'employee/update' => array_map('form_validation_field', $employee_create_update)
+		'employee/create' => form_validation_field($employee_create_update),
+		'employee/update' => form_validation_field($employee_create_update),
+		'employee/delete' => form_validation_field($employee_delete)
 	];	
